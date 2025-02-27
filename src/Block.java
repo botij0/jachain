@@ -18,4 +18,14 @@ public class Block {
                 previousHash + Long.toString((timeStamp)) + data
         );
     }
+
+    @Override
+    public String toString(){
+        return "Block {" +
+                "\n  hash='" + hash + '\'' +
+                ",\n  previousHash='" + previousHash + '\'' +
+                ",\n  data='" + data + '\'' +
+                ",\n  timeStamp=" + timeStamp +
+                "\n}";
+    }
 }
