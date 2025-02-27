@@ -1,29 +1,40 @@
-### IntelliJ IDEA ###
+# Archivos y carpetas generados por IntelliJ IDEA
+.idea/
+*.iml
+*.iws
 out/
-!**/src/main/**/out/
-!**/src/test/**/out/
+*.ipr
 
-### Eclipse ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+# Archivos de compilación
+target/
 bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
+build/
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
+# Dependencias descargadas por Maven o Gradle
+.mvn/
+.mvnw*
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
 
-### VS Code ###
-.vscode/
+# Archivos de log y sistema
+logs/
+*.log
+hs_err_pid*
 
-### Mac OS ###
+# Configuración del sistema operativo
 .DS_Store
+Thumbs.db
+
+# Archivos de usuario específicos de IntelliJ IDEA
+*.swp
+*.swo
+
+# Archivos de ejecución
+*.class
+*.jar
+*.war
+*.ear
+
+# Configuración local
+.env
