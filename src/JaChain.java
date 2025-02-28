@@ -1,11 +1,30 @@
+import java.security.Security;
 import java.util.ArrayList;
 
 public class JaChain {
 
     public static ArrayList<Block> blockchain = new ArrayList<Block>();
-    public static int difficulty = 6;
+    public static int difficulty = 5;
+    public static Wallet walletA;
+    public static Wallet walletB;
 
     public static void main(String[] args){
+        Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
+
+        walletA = new Wallet();
+        walletB = new Wallet();
+
+        System.out.println("Private Key: " + StringUtil.getStringFromKey(walletA.privateKey));
+        System.out.println("Public Key: " + StringUtil.getStringFromKey(walletA.publicKey));
+
+        Transaction transaction = new Transaction(walletA.publicKey, walletB.publicKey, 5, null);
+        transaction.generateSignature(walletA.privateKey);
+
+        System.out.println("Is signature verified:");
+        System.out.println(transaction.verifySignature());
+    }
+
+    public static void displayBasicChain() {
         blockchain.add(new Block("First Block", "0"));
         System.out.println("Trying to Mine Block 1...");
         blockchain.getFirst().mineBlock(difficulty);
