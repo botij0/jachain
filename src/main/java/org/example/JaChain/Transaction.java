@@ -43,4 +43,18 @@ public class Transaction {
         return StringUtil.verifyECDSASig(sender, data, signature);
     }
 
+    public boolean processTransaction() {
+        if(!verifySignature()){
+            System.out.println("#Transaction Signature failed to verify");
+        }
+
+        for(TransactionInput i : inputs){
+            i.UTXO = JaChain.UTXOs.get(i.transactionOutputId);
+        }
+
+        // TODO: continue here
+
+        return true;
+    }
+
 }

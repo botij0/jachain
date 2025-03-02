@@ -2,10 +2,12 @@ package org.example.JaChain;
 
 import java.security.Security;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class JaChain {
 
     public static ArrayList<Block> blockchain = new ArrayList<Block>();
+    public static HashMap<String,TransactionOutput> UTXOs = new HashMap<String, TransactionOutput>(); // list of all unspent transaction
     public static int difficulty = 5;
     public static Wallet walletA;
     public static Wallet walletB;
