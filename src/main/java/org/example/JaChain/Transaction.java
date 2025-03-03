@@ -48,13 +48,55 @@ public class Transaction {
             System.out.println("#Transaction Signature failed to verify");
         }
 
+        // Gather transaction inputs (Make sure they are unspent)
         for(TransactionInput i : inputs){
             i.UTXO = JaChain.UTXOs.get(i.transactionOutputId);
         }
 
-        // TODO: continue here
+
+        if (getInputsValue() < JaChain.minimumTransaction) {
+            System.out.println("#Transacation Inputs to small: " + getInputsValue());
+            return false;
+        }
+
+        float leftOver = getInputsValue() - value;
+        transactionId = calculateHash();
+
+        // send value to recipient
+        outputs.add(new TransactionOutput(this.reciepient, value, transactionId));
+        // send the left over 'change' back to sender
+        outputs.add(new TransactionOutput(this.sender, leftOver, transactionId));
+
+        // Add outputs to Unspent List
+        for (TransactionOutput o : outputs){
+            JaChain.UTXOs.put(o.id, o);
+        }
+
+        //Remove transaction inputs from UTXO lists as spent
+        for(TransactionInput i : inputs){
+            if(i.UTXO == null) continue;
+            JaChain.UTXOs.remove(i.UTXO.id);
+        }
+
 
         return true;
+    }
+
+    public float getInputsValue(){
+        float total = 0;
+        for(TransactionInput i : inputs){
+            if(i.UTXO == null) continue;
+            total += i.UTXO.value;
+        }
+        return total;
+    }
+
+    public float getOutputsValue(){
+        float total = 0;
+        for(TransactionOutput o : outputs){
+            total += o.value;
+        }
+        return total;
     }
 
 }
